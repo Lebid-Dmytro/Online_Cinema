@@ -6,7 +6,7 @@ Online Cinema Platform - a digital platform for watching and purchasing movies.
 
 1. Clone the repository and install dependencies:
 ```bash
-git clone <repository-url>
+git clone <https://github.com/Lebid-Dmytro/Online_Cinema.git>
 cd Online_Cinema
 poetry install
 ```
