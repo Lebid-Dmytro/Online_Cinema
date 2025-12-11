@@ -29,4 +29,3 @@ def init_user_groups(db: Session):
         logger.error(f"Error initializing user groups: {e}")
         db.rollback()
         raise
-

@@ -8,4 +8,3 @@ router = APIRouter(prefix="/redirect", tags=["redirect"])
 async def redirect_root():
     """Base redirect endpoint"""
     return RedirectResponse(url="/docs")
-

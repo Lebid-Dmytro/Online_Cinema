@@ -10,4 +10,3 @@ class UserGroupEnum(str, Enum):
 class GenderEnum(str, Enum):
     MAN = "MAN"
     WOMAN = "WOMAN"
-

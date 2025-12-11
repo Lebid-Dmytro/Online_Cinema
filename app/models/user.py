@@ -45,4 +45,3 @@ class UserProfile(Base):
     info = Column(Text, nullable=True)
 
     user = relationship("User", back_populates="profile")
-
