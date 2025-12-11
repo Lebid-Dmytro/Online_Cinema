@@ -9,10 +9,13 @@ from app.api.v1 import auth, redirect
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: Initialize database
+    # Startup: Initialize user groups after migrations
     db = SessionLocal()
     try:
         init_user_groups(db)
+    except Exception as e:
+        # Log error but don't fail startup - migrations should handle table creation
+        print(f"Warning: Could not initialize user groups: {e}")
     finally:
         db.close()
     yield
