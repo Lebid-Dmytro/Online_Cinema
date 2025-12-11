@@ -20,7 +20,6 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 async def register(user_data: UserRegister, db: Session = Depends(get_db)):
-    # Check if email already exists
     existing_user = db.query(User).filter(User.email == user_data.email).first()
     if existing_user:
         raise HTTPException(
@@ -28,7 +27,6 @@ async def register(user_data: UserRegister, db: Session = Depends(get_db)):
             detail="Email already registered"
         )
     
-    # Get default user group (USER)
     user_group = db.query(UserGroup).filter(UserGroup.name == UserGroupEnum.USER).first()
     if not user_group:
         raise HTTPException(
@@ -36,12 +34,11 @@ async def register(user_data: UserRegister, db: Session = Depends(get_db)):
             detail="User group not found. Please initialize database."
         )
     
-    # Create new user
     hashed_password = get_password_hash(user_data.password)
     new_user = User(
         email=user_data.email,
         hashed_password=hashed_password,
-        is_active=True,  # Auto-activate (no email verification in simplified version)
+        is_active=True,
         group_id=user_group.id
     )
     
@@ -89,12 +86,6 @@ async def login(
 
 @router.post("/logout", status_code=status.HTTP_200_OK)
 async def logout(current_user: User = Depends(get_current_active_user)):
-    """
-    Logout endpoint.
-    Note: Since we use stateless JWT tokens, the token remains valid until expiration.
-    Client should remove the token from storage. For production, consider implementing
-    a token blacklist using Redis.
-    """
     return {"message": "Successfully logged out"}
 
 

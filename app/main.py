@@ -9,17 +9,14 @@ from app.api.v1 import auth, redirect
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: Initialize user groups after migrations
     db = SessionLocal()
     try:
         init_user_groups(db)
     except Exception as e:
-        # Log error but don't fail startup - migrations should handle table creation
         print(f"Warning: Could not initialize user groups: {e}")
     finally:
         db.close()
     yield
-    # Shutdown (if needed)
 
 
 app = FastAPI(
@@ -37,7 +34,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include routers
 app.include_router(auth.router, prefix="/api/v1")
 app.include_router(redirect.router, prefix="/api/v1")
 

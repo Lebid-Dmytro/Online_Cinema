@@ -5,13 +5,12 @@ from sqlalchemy.pool import NullPool
 
 from app.core.config import settings
 
-# Create engine with connection pooling
 engine = create_engine(
     settings.DATABASE_URL,
-    pool_pre_ping=True,  # Verify connections before using
+    pool_pre_ping=True,
     pool_size=10,
     max_overflow=20,
-    echo=False,  # Set to True for SQL query logging
+    echo=False,
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -20,7 +19,6 @@ Base = declarative_base()
 
 
 def get_db():
-    """Dependency for getting database session"""
     db = SessionLocal()
     try:
         yield db
