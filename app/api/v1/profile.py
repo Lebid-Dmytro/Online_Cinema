@@ -1,7 +1,6 @@
 import os
 import uuid
 from pathlib import Path
-from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
