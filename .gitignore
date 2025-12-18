@@ -61,3 +61,6 @@ htmlcov/
 # Docker
 .dockerignore
 
+# Uploads
+uploads/
+
