@@ -135,13 +135,13 @@ async def get_favorites(
     
     favorite_items = []
     for movie in favorites:
-        favorite = db.query(Favorite).filter(
+        favorite_rel = db.query(Favorite).filter(
             and_(Favorite.user_id == current_user.id, Favorite.movie_id == movie.id)
         ).first()
         
-        movie_dict = FavoriteMovieItem.model_validate(movie)
-        movie_dict.added_at = favorite.added_at
-        favorite_items.append(movie_dict)
+        movie_data = FavoriteMovieItem.model_validate(movie)
+        movie_data.added_at = favorite_rel.added_at
+        favorite_items.append(movie_data)
     
     return FavoriteListResponse(
         items=favorite_items,
