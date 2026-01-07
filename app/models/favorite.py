@@ -19,4 +19,4 @@ class Favorite(Base):
     __table_args__ = (
         UniqueConstraint('user_id', 'movie_id', name='uq_user_movie_favorite'),
     )
-
+    

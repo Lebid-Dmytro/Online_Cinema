@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from datetime import datetime
 from uuid import UUID
 from decimal import Decimal
+from typing import List
 
 from app.schemas.movie import GenreResponse, CertificationResponse
 
@@ -28,4 +29,4 @@ class FavoriteListResponse(BaseModel):
     page: int
     page_size: int
     total_pages: int
-
+    
